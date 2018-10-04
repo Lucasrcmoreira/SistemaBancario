@@ -14,8 +14,8 @@ import java.sql.SQLException;
  */
 public class DAOPessoaFisica extends DAO{
     
-    public void Cadastrar (PessoaFisica pf){
-      String cmdSql ="insert into dbfreetradebank (nome,cpf,email,senha)values(?,?,?,?)";
+    public void CadastrarPessoaFisica (PessoaFisica pf){
+      String cmdSql ="insert into pessoafisica (nome,cpf,email,senha)values(?,?,?,?)";
       this.conexao();
       
       try{
@@ -24,6 +24,7 @@ public class DAOPessoaFisica extends DAO{
           this.stmt.setInt(2,pf.getCpf());
           this.stmt.setString(3, pf.getEmail());
           this.stmt.setString(4, pf.getSenha());
+          this.stmt.execute();
           
       }catch(SQLException ex){
       System.out.println("ERRO AO INSERIR " + ex.getMessage());
