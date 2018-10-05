@@ -6,6 +6,7 @@
 package br.com.sistemabancario.dao;
 
 import br.com.sistemabancario.models.PessoaFisica;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -29,7 +30,24 @@ public class DAOPessoaFisica extends DAO{
       }catch(SQLException ex){
       System.out.println("ERRO AO INSERIR " + ex.getMessage());
       }
-              
-      
+    }
+     public boolean LoginPessoaFisica(PessoaFisica pf){
+        String cmdSql ="select cpf,senha from pessoafisica WHERE cpf = ? and senha = ? ";
+        this.conexao();
+        
+        try{
+            this.stmt =this.conn.prepareStatement(cmdSql);
+            this.stmt.setInt(1,pf.getCpf());
+            this.stmt.setString(2, pf.getSenha());
+            
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+            return true;
+            }else return false;
+            
+        }catch(SQLException ex){
+            System.out.println("ERRO NO COMANDO BUSCAR " + ex.getMessage());
+            return false;
+        }
     }
 }
